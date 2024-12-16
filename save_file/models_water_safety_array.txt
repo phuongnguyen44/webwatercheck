@@ -1,0 +1,22 @@
+Entry 1:
+LR: Water NotSafe
+DT: Water NotSafe
+RF: Water NotSafe
+ETC: Water NotSafe
+SVM: Water NotSafe
+KNN: Water Safe
+ABC: Water NotSafe
+GBC: Water NotSafe
+NB: Water NotSafe
+
+Entry 2:
+LR: Water Safe
+DT: Water Safe
+RF: Water Safe
+ETC: Water Safe
+SVM: Water NotSafe
+KNN: Water Safe
+ABC: Water Safe
+GBC: Water Safe
+NB: Water Safe
+

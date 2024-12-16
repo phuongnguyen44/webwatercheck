@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% block title %}Guide Page{% endblock %}
+{% block content %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diễn Đàn</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body>
+    <style>
+        /* Toàn bộ khung bao */
+        #posts {
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 30px;
+        }
+
+        /* Bài viết */
+        .post {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .post h2, .post h3 {
+            margin: 10px 0;
+        }
+
+        .post-user {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .post-title {
+            font-size: 1.4em;
+            color: #007bff;
+        }
+
+        .post-content {
+            font-size: 1em;
+            color: #333;
+        }
+
+        .post-date {
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        /* Form bình luận */
+        .comment-form {
+            background-color: #f1f1f1;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        .comment-form form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            height: 100px;
+            resize: none;
+        }
+
+        .comment-form button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .comment-form button:hover {
+            background-color: #218838;
+        }
+
+        /* Hiển thị bình luận */
+        .comments {
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+
+        .comment {
+            background-color: #f1f1f1;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .comment-content {
+            font-size: 1em;
+            color: #333;
+        }
+
+        .comment-date {
+            font-size: 0.8em;
+            color: #888;
+        }
+
+
+
+    </style>
+    <h1>Diễn Đàn</h1>
+
+    <!-- Form đăng bài mới -->
+    <!-- <form action="{{ url_for('guide') }}" method="POST">
+        <input type="text" name="title" placeholder="Tiêu đề" required>
+        <textarea name="content" placeholder="Nội dung" required></textarea>
+        <button type="submit">Đăng bài</button>
+    </form> -->
+    <form action="{{ url_for('guide') }}" method="POST">
+        <div class="mb-3">
+        <label for="title" class="form-label">Tiêu Đề</label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Nhập tiêu đề..." style="max-width: 350px;" required>
+      </div>
+      <div class="mb-3">
+        <label for="content" class="form-label">Nội Dung</label>
+        <textarea class="form-control" id="content" name="content" rows="3" style="max-width: 350px;" required></textarea>
+      </div>
+      <button type="submit">Đăng bài</button>
+    </form>
+    
+    <h2>Các bài viết</h2>
+    <div id="posts">
+    {% if posts %}
+        {% for post in posts %}
+            <div class="post">
+                <h2 class="post-user">User: {{ post[1] }}</h2>
+                <h3 class="post-title">Title: {{ post[3] }}</h3>
+                <p class="post-content">{{ post[4] }}</p>
+                <small class="post-date">Được đăng vào: {{ post[2] }}</small>
+            </div>
+    
+            <!-- Form để thêm bình luận -->
+            <div class="comment-form">
+                <form action="{{ url_for('comment', post_id=post[0]) }}" method="POST">
+                    <textarea name="content" placeholder="Write your comment here..."></textarea><br>
+                    <button type="submit">Post Comment</button>
+                </form>
+            </div>
+    
+            {% if comments %}
+            <!-- Hiển thị các bình luận -->
+            <div class="comments-{{ post[0] }}">
+                {% for comment in comments[post[0]] %}
+                    {% if comments.count != 0 %}
+                       <div class="comment">
+                        <p class="comment-content">{{ comment[2] }}</p> 
+                        <small class="comment-date">Commented at: {{ comment[3] }}</small>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endfor %}
+    
+    {% endif %}
+    </div>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        socket.on('new_post', function(post) {
+            const postsDiv = document.getElementById('posts');
+            const newPost = document.createElement('div');
+            newPost.classList.add('post');
+            const newForm=document.createElement('div');
+            newForm.classList.add('comment-form')
+            const newList=document.createElement('div');
+            newList.classList.add(`comments-${post.id}`)
+            
+            // Hiển thị thông tin bài viết
+            newPost.innerHTML = `
+                <h2 class="post-user" >User : ${post.user||''}</h2>
+                <h3 class="post-title">Title : ${post.title||''}</h3>
+                <p class="post-content">Content : ${post.content||''}</p>
+                <small class="post-date">Được đăng vào: ngay bây giờ</small>
+            `;
+            newForm.innerHTML = `
+                <form action="/comment/${post.id || ''}" method="POST">
+                    <textarea name="content" placeholder="Write your comment here..." required></textarea>
+                    <button type="submit">Post Comment</button>
+                </form>
+            `;
+            
+            
+            
+            postsDiv.appendChild(newPost);
+            postsDiv.appendChild(newForm)
+            postsDiv.appendChild(newList)
+            
+           
+        });
+        // Lắng nghe sự kiện "new_comment" để hiển thị bình luận mới
+        socket.on('new_comment', function(comment) {
+            const commentsDiv = document.getElementsByClassName(`comments-${comment.postId}`)[0];
+            console.log(commentsDiv)
+            const newComment = document.createElement('div');
+            newComment.classList.add('comment');
+            
+            newComment.innerHTML = `
+                <p>${comment.content}</p>
+                <small>Được bình luận vào: ngay bây giờ</small>
+            `;
+            
+            commentsDiv.appendChild(newComment);
+        });
+
+
+    </script>
+</body>
+
+</html>
+
+
+
+{% endblock %}

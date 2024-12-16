@@ -1,0 +1,9 @@
+LR: Water NotSafe
+DT: Water NotSafe
+RF: Water Safe
+ETC: Water Safe
+SVM: Water NotSafe
+KNN: Water NotSafe
+ABC: Water Safe
+GBC: Water Safe
+NB: Water NotSafe

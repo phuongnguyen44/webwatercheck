@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %} 
+<body>
+    {% if username %}
+    <div class="form" style="text-transform: uppercase;font-weight: bold; ">Nhập dữ liệu dự đoán</div>
+    <form action="/predict" method="POST" class="form">
+        <div class="mb-3">
+          <label for="ph" class="form-label">Ph:</label>
+          <input type="number" step="0.001" class="form-control" id="ph" name="ph" required style="max-width: 350px;">
+        </div>
+        <div class="mb-3">
+            <label for="hardness" class="form-label">Hardness:</label>
+            <input type="number" step="0.001" class="form-control" id="hardness" name="hardness" required style="max-width: 350px;">
+        </div>
+       
+        <div class="mb-3">
+            <label for="solids" class="form-label">Solids:</label>
+            <input type="number" step="0.001" class="form-control" id="solids" name="solids" required style="max-width: 350px;">
+        </div>
+
+        
+        <div class="mb-3">
+            <label for="chloramines" class="form-label">Chloramines:</label>
+            <input type="number" step="0.001" class="form-control" id="chloramines" name="chloramines" required style="max-width: 350px;">
+        </div>
+
+        
+        <div class="mb-3">
+            <label for="sulfate" class="form-label">Sulfate:</label>
+            <input type="number" step="0.001" class="form-control" id="sulfate" name="sulfate" required style="max-width: 350px;">
+        </div>
+
+        
+        <div class="mb-3">
+            <label for="conductivity" class="form-label">Conductivity:</label>
+            <input type="number" step="0.001" class="form-control" id="conductivity" name="conductivity" required style="max-width: 350px;">
+        </div>
+
+        
+        <div class="mb-3">
+            <label for="organic_carbon" class="form-label">Organic Carbon:</label>
+            <input type="number" step="0.001" class="form-control" id="organic_carbon" name="organic_carbon" required style="max-width: 350px;">
+        </div>
+
+
+        <div class="mb-3">
+            <label for="trihalomethanes" class="form-label">Trihalomethanes:</label>
+            <input type="number" step="0.001" class="form-control" id="trihalomethanes" name="trihalomethanes" required style="max-width: 350px;">
+        </div>
+
+
+        <div class="mb-3">
+            <label for="turbidity" class="form-label">Turbidity:</label>
+            <input type="number" step="0.001" class="form-control" id="turbidity" name="turbidity" required style="max-width: 350px;">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Predict</button>
+    </form>
+    {% else %}
+        <p class="login-prompt">You are not logged in. Please <a href="/login" class="login-link">login</a> to access the home page.</p>
+
+    {% endif %}
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,127 @@
+.form {
+    margin: 0 auto;  /* Đảm bảo form căn giữa */
+    max-width: 400px; /* Giới hạn chiều rộng tối đa */
+    width: 100%; /* Chiều rộng form sẽ là 100% của container */
+  }
+/* Căn chỉnh và tạo kiểu cho văn bản */
+.login-prompt {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    width: 80%;  /* Chiều rộng form bằng 80% màn hình */
+    max-width: 600px;  /* Tối đa chiều rộng */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+}
+
+/* Định dạng liên kết (login link) */
+.login-link {
+    color: #007BFF;
+    font-weight: bold;
+    text-decoration: none; /* Xóa gạch dưới */
+}
+
+.login-link:hover {
+    text-decoration: underline;  /* Thêm gạch dưới khi hover */
+    color: #0056b3;  /* Thay đổi màu khi hover */
+}
+
+/* Tạo hiệu ứng hover cho toàn bộ đoạn văn bản */
+.login-prompt:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Styling for the div container */
+.prediction-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Style for each prediction div */
+.prediction-item {
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e6e6e6;
+}
+
+/* Style for the model name */
+.prediction-item strong {
+    font-size: 16px;
+    color: #2a2a2a;
+}
+
+/* Style for the prediction status */
+.prediction-item span {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Color-coding based on status */
+.safe {
+    color: green;
+}
+
+.not-safe {
+    color: red;
+}
+
+/* Additional styling for the last div */
+.prediction-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive design: ensure layout adjusts on smaller screens */
+@media (max-width: 600px) {
+    .prediction-container {
+        padding: 15px;
+    }
+
+    .prediction-item {
+        font-size: 14px;
+    }
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+caption {
+    font-size: 1.5em;
+    margin: 10px;
+}

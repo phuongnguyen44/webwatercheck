@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Upload Page{% endblock %}
+{% block content %} 
+<body>
+    {% if username %}
+    {% if error %}
+        <p style="color: red;" class="form">{{ error }}</p>
+    {% endif %}
+    <form action="/upload" method="POST" class="form" enctype="multipart/form-data">
+        <div class="input-group mb-3 form">
+            <label class="input-group-text" for="file">Upload</label>
+            <input type="file" class="form-control" id="file" name="file" required style="max-width: 350px;" accept=".csv">
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+    
+    {% else %}
+    {% endif %}
+</body>
+</html>
+
+{% endblock %}

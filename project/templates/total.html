@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Total Page{% endblock %}
+{% block content %} 
+<body>
+    {% if datas1 %}
+    <div class="prediction-container">
+        <div class="prediction-item">
+            <strong>LR:</strong><span class="{{ 'not-safe' if datas1[0]['LR'] == 'Water NotSafe' else 'safe' }}">{{datas1[0]['LR']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>DT:</strong><span class="{{ 'not-safe' if datas1[0]['DT'] == 'Water NotSafe' else 'safe' }}">{{datas1[0]['DT']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>RF:</strong><span class="{{ 'not-safe' if datas1[0]['RF'] == 'Water NotSafe' else 'safe' }}">{{datas1[0]['RF']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>ETC:</strong><span class="{{ 'not-safe' if datas1[0]['ETC'] == 'Water NotSafe' else 'safe' }}">{{datas1[0]['ETC']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>SVM:</strong><span class="{{ 'not-safe' if datas1[0]['SVM'] == 'Water NotSafe' else 'safe' }}">{{datas1[0]['SVM']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>KNN:</strong><span class="{{ 'not-safe' if datas1[0]['KNN'] == 'Water NotSafe' else 'safe' }}">{{datas1[0]['KNN']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>ABC:</strong><span class="{{ 'not-safe' if datas1[0]['ABC'] == 'Water NotSafe' else 'safe' }}">{{datas1[0]['ABC']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>GBC:</strong><span class="{{ 'not-safe' if datas1[0]['GBC'] == 'Water NotSafe' else 'safe' }}">{{datas1[0]['GBC']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>NB:</strong><span class="{{ 'not-safe' if datas1[0]['NB'] == 'Water NotSafe' else 'safe' }}">{{datas1[0]['NB']}}</span>
+        </div>
+    </div>
+    <div class="table-container form">
+        <h2>Model Accuracy Results</h2>
+        {{datas1[1]|safe}}
+    </div>
+    {% else %}
+
+    {% for data in datas %}
+    <div class="prediction-container">
+        <div class="prediction-item">
+            <strong>LR:</strong><span class="{{ 'not-safe' if data[0]['LR'] == 'Water NotSafe' else 'safe' }}">{{data[0]['LR']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>DT:</strong><span class="{{ 'not-safe' if data[0]['DT'] == 'Water NotSafe' else 'safe' }}">{{data[0]['DT']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>RF:</strong><span class="{{ 'not-safe' if data[0]['RF'] == 'Water NotSafe' else 'safe' }}">{{data[0]['RF']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>ETC:</strong><span class="{{ 'not-safe' if data[0]['ETC'] == 'Water NotSafe' else 'safe' }}">{{data[0]['ETC']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>SVM:</strong><span class="{{ 'not-safe' if data[0]['SVM'] == 'Water NotSafe' else 'safe' }}">{{data[0]['SVM']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>KNN:</strong><span class="{{ 'not-safe' if data[0]['KNN'] == 'Water NotSafe' else 'safe' }}">{{data[0]['KNN']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>ABC:</strong><span class="{{ 'not-safe' if data[0]['ABC'] == 'Water NotSafe' else 'safe' }}">{{data[0]['ABC']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>GBC:</strong><span class="{{ 'not-safe' if data[0]['GBC'] == 'Water NotSafe' else 'safe' }}">{{data[0]['GBC']}}</span>
+        </div>
+        <div class="prediction-item">
+            <strong>NB:</strong><span class="{{ 'not-safe' if data[0]['NB'] == 'Water NotSafe' else 'safe' }}">{{data[0]['NB']}}</span>
+        </div>
+    </div>
+    <div class="table-container form">
+        <h2>Model Accuracy Results</h2>
+        {{data[1]|safe}}
+    </div>
+    {% endfor %}
+    {% endif %}
+</body>
+</html>
+
+{% endblock %}
